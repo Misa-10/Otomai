@@ -17,6 +17,8 @@
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "mysql": "^2.18.1",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6",
     "string-similarity": "^4.0.4"
   }
 }

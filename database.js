@@ -1,39 +1,25 @@
-import { createConnection } from 'mysql';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-// Create a connection to the MySQL database
-const connection = createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  port: 8889,
-});
-
-const fetchData = () => {
-  return new Promise((resolve, reject) => {
-    // Connect to the database
-    connection.connect((err) => {
-      if (err) {
-        console.error('Error connecting to MySQL: ' + err.stack);
-        reject(err);
-        return;
-      }
-      console.log('Connected to MySQL as id ' + connection.threadId);
-
-      // Query the database after the connection is established
-      connection.query('SELECT * FROM `armor`', (err, rows) => {
-        if (err) {
-          connection.end();
-          reject(err);
-          return;
-        }
-        connection.end();
-        resolve(rows);
-      });
+async function fetchData() {
+  try {
+    // Ouvrez une connexion à la base de données SQLite
+    const db = await open({
+      filename: 'Otomai.db', // Remplacez 'mydatabase.db' par le nom de votre fichier SQLite
+      driver: sqlite3.Database,
     });
-  });
-};
+
+    // Exécutez une requête SQL pour sélectionner des données
+    const rows = await db.all('SELECT * FROM armor');
+
+    return rows;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données :', error);
+    throw error;
+  }
+}
 
 export default fetchData();
