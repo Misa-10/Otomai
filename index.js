@@ -51,7 +51,7 @@ bot.on("messageCreate", (message) => {
     // Remove the prefix from the message content and split the message into parts
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
+    console.log(`Commande ${command} exécutée par ${message.author.tag}`);
     if (command === "i") {
       const itemName = args.join(" ");
       const data = bot.data; // Retrieve the data from the bot
@@ -116,6 +116,7 @@ bot.on("messageCreate", (message) => {
           .setColor("#00ff00");
 
         message.reply({ embeds: [embed] });
+        console.log(`Best match score: ${bestMatchScore}`);
       } else {
         message.reply("No result found.");
       }
@@ -132,6 +133,8 @@ bot.on("messageCreate", (message) => {
         .setColor("#00ff00");
 
       message.channel.send({ embeds: [embed] });
+      console.log(`Commande infos exécutée`);
     }
+    
   }
 });
