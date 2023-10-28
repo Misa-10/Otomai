@@ -116,7 +116,7 @@ bot.on("messageCreate", (message) => {
           .setColor("#00ff00");
 
         message.reply({ embeds: [embed] });
-        console.log(`Best match score: ${bestMatchScore}`);
+        console.log(`Commande i exécutée correctement`);
       } else {
         message.reply("No result found.");
       }
